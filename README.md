@@ -1,4 +1,4 @@
-# S7Crypto
+# S7SCEncrypt
 
 This is some scripts I made while studying the Sektor7 courses. Nothing really fancy, it's just that they used scripts in Python 2.7 and I wanted to use Python 3.
 
