@@ -4,6 +4,14 @@ This is some scripts I made while studying the Sektor7 courses. Nothing really f
 
 Generally, the output can be on cli in C friendly format or on file in binary format because my main goal was obviously shellcode encryption.
 
+# Install
+
+A virtualenv is recommended.
+
+```
+pip install -r requirements.txt
+```
+
 ## xorencrypt.py
 
 Encrypt a text message from cli

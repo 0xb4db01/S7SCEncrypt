@@ -23,14 +23,14 @@ KEY = urandom(16)
 # @description Get the message encrypted in C friendly format
 # @param data message
 #
-def get_c_fmt(data):
+def get_c_fmt(data: bytes) -> bytes:
     return '{ 0x' + ', 0x'.join(hex(x)[2:] for x in data) + ' };'
 
 ##
 # @description AES padding
 # @param data message
 #
-def pad(data):
+def pad(data: bytes) -> bytes:
     x = bytearray(data)
 
     return data + (AES.block_size - len(data) % AES.block_size) * chr(AES.block_size - len(data) % AES.block_size).encode()
@@ -39,13 +39,13 @@ def pad(data):
 # @description AES Encrypt data (IV is all zeroes, not good but ok for me)
 # @param data the data to encrypt
 #
-def encrypt(data):
+def encrypt(data: bytes) -> bytes:
     k = hashlib.sha256(KEY).digest()
     iv = 16 * '\x00'
 
     data = pad(data)
 
-    cipher = AES.new(k, AES.MODE_CBC, iv)
+    cipher = AES.new(k, AES.MODE_CBC, iv.encode())
 
     return cipher.encrypt(bytes(data))
 
@@ -54,7 +54,7 @@ def encrypt(data):
 # @param ifile the input file
 # @param ofile the output file
 #
-def encrypt_file(ifile: str, ofile: str):
+def encrypt_file(ifile: str, ofile: str) -> None:
     f = open(ifile, 'rb')
 
     file_content = f.read()
@@ -77,7 +77,7 @@ def encrypt_file(ifile: str, ofile: str):
 # @description encrypt a message
 # @param msg the message to encrypt
 #
-def encrypt_message(msg: bytes):
+def encrypt_message(msg: bytes) -> None:
     encrypted = encrypt(msg)
 
     print('AES Key        :', get_c_fmt(KEY), '\n')
