@@ -71,3 +71,13 @@ Wrote 16 bytes in file.bin
 xxd file.bin
 00000000: 109b 9acf decf 18e1 74c1 e925 099c 3a7a  ........t..%..:z
 ```
+
+## bin2hfile.py
+
+Generate a C/C++ header file from a binary data file. Assuming you have created a file with aesencrypt.py which contains a shellcode, you can turn it into a formatted header file
+
+```
+python3 bin2hfile.py -i file.bin -o file.h -l 207376
+```
+
+where -i is the input file, -o is the header file you wish to create and -l is the length of the payload.
