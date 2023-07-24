@@ -81,3 +81,35 @@ python3 bin2hfile.py -i file.bin -o file.h -l 207376
 ```
 
 where -i is the input file, -o is the header file you wish to create and -l is the length of the payload.
+
+## xorstr2hfile.py
+
+Generate a C header file for XORed variables.
+
+The output file will have the given XOR key as a C define, unsigned char for each variable and a size_t value for each XORed value length.
+
+For example:
+
+```
+cat variables.txt 
+valloc,VirtualAlloc
+vprote,VirtualProtect
+rmomem,RtlMoveMemory
+ker32d,Kernel32.dll
+
+python3 xorstr2hfile.py -k 's3cret!' -i variables.txt -o encstr.h
+cat encstr.h 
+#define XORKEY "s3cret!"
+
+unsigned char valloc[] = { 0x25, 0x5a, 0x11, 0x6, 0x10, 0x15, 0x4d, 0x32, 0x5f, 0xf, 0x1d, 0x6 }
+size_t valloc_len = 12;
+
+unsigned char vprote[] = { 0x25, 0x5a, 0x11, 0x6, 0x10, 0x15, 0x4d, 0x23, 0x41, 0xc, 0x6, 0x0, 0x17, 0x55 }
+size_t vprote_len = 14;
+
+unsigned char rmomem[] = { 0x21, 0x47, 0xf, 0x3f, 0xa, 0x2, 0x44, 0x3e, 0x56, 0xe, 0x1d, 0x17, 0xd }
+size_t rmomem_len = 13;
+
+unsigned char ker32d[] = { 0x38, 0x56, 0x11, 0x1c, 0x0, 0x18, 0x12, 0x41, 0x1d, 0x7, 0x1e, 0x9 }
+size_t ker32d_len = 12;
+```
