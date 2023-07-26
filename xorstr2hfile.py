@@ -17,7 +17,7 @@ from xorencrypt import xorro
 # @return unsigned char c code
 #
 def gen_enc_str(varname: str, key: str, data: bytes) -> str:
-    return 'unsigned char ' + varname + '[] = { ' + ', '.join(hex(i) for i in xorro(key, data)) + ' }'
+    return 'unsigned char ' + varname + '[] = { ' + ', '.join(hex(i) for i in xorro(key, data)) + ' };'
 
 ##
 # Parse file for lines such as "variable_name,variable_value"
